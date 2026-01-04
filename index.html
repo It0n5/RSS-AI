@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Paper Feed | arXiv RSS Reader</title>
+    <meta name="description"
+        content="Lightweight RSS feed reader for AI academic papers from arXiv. Filter by category, keywords, and date.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <h1>AI Paper Feed</h1>
+                </div>
+                <div class="header-actions">
+                    <button id="bookmarks-toggle" class="btn btn-ghost" title="View Bookmarks">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                        </svg>
+                        <span class="bookmark-count" id="bookmark-count">0</span>
+                    </button>
+                    <button id="refresh-btn" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6M1 20v-6h6" />
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                        </svg>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar Filters -->
+            <aside class="sidebar">
+                <div class="filter-section">
+                    <h3>Categories</h3>
+                    <div class="category-filters" id="category-filters">
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="cs.LG" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text">cs.LG</span>
+                            <span class="label-desc">Machine Learning</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="cs.CL" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text">cs.CL</span>
+                            <span class="label-desc">NLP / LLMs</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="cs.AI" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text">cs.AI</span>
+                            <span class="label-desc">General AI</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="cs.CV" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text">cs.CV</span>
+                            <span class="label-desc">Computer Vision</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="cs.RO" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text">cs.RO</span>
+                            <span class="label-desc">Robotics</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="cs.IR" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text">cs.IR</span>
+                            <span class="label-desc">Information Retrieval</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="stat.ML" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text">stat.ML</span>
+                            <span class="label-desc">Statistics ML</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Date Range</h3>
+                    <div class="date-range-filters" id="date-range-filters">
+                        <label class="radio-label">
+                            <input type="radio" name="dateRange" value="today" checked>
+                            <span class="radio-mark"></span>
+                            <span class="label-text">Today's Feed</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="dateRange" value="week">
+                            <span class="radio-mark"></span>
+                            <span class="label-text">Past 7 Days</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="dateRange" value="month">
+                            <span class="radio-mark"></span>
+                            <span class="label-text">Past 30 Days</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Search</h3>
+                    <div class="search-input-wrapper">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.35-4.35" />
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Filter by keyword..." class="search-input">
+                        <button id="clear-search" class="clear-search" title="Clear search">×</button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Quick Filters</h3>
+                    <div class="quick-filters">
+                        <button class="chip active" data-filter="all">All Papers</button>
+                        <button class="chip" data-filter="llm">LLM</button>
+                        <button class="chip" data-filter="transformer">Transformer</button>
+                        <button class="chip" data-filter="rag">RAG</button>
+                        <button class="chip" data-filter="diffusion">Diffusion</button>
+                        <button class="chip" data-filter="reinforcement">RL</button>
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>Stats</h3>
+                    <div class="stats-panel">
+                        <div class="stat-item">
+                            <span class="stat-value" id="total-papers">0</span>
+                            <span class="stat-label">Total Papers</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="filtered-papers">0</span>
+                            <span class="stat-label">Showing</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Papers Grid -->
+            <section class="papers-section">
+                <!-- Loading State -->
+                <div class="loading-container" id="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Fetching latest papers...</p>
+                </div>
+
+                <!-- Error State -->
+                <div class="error-container" id="error" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
+                    <p id="error-message">Failed to load papers</p>
+                    <button class="btn btn-primary" onclick="location.reload()">Try Again</button>
+                </div>
+
+                <!-- Papers Grid -->
+                <div class="papers-grid" id="papers-grid"></div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="empty-state" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="12" y1="18" x2="12" y2="12" />
+                        <line x1="9" y1="15" x2="15" y2="15" />
+                    </svg>
+                    <p>No papers match your filters</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bookmarks Sidebar -->
+        <aside class="bookmarks-sidebar" id="bookmarks-sidebar">
+            <div class="bookmarks-header">
+                <h2>Bookmarks</h2>
+                <button id="close-bookmarks" class="btn btn-ghost">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="bookmarks-list" id="bookmarks-list">
+                <div class="empty-bookmarks">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg>
+                    <p>No bookmarks yet</p>
+                    <span>Click the bookmark icon on any paper to save it</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Overlay for mobile -->
+        <div class="overlay" id="overlay"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
