@@ -1,0 +1,14 @@
+{
+  "name": "ai-paper-feed",
+  "version": "1.0.0",
+  "description": "Lightweight RSS feed reader for AI academic papers from arXiv",
+  "main": "start.js",
+  "scripts": {
+    "start": "node start.js",
+    "proxy": "node server.js",
+    "serve": "npx -y http-server -p 3000 -c-1"
+  },
+  "keywords": ["arxiv", "rss", "ai", "papers", "reader"],
+  "author": "",
+  "license": "MIT"
+}

@@ -21,25 +21,26 @@ A lightweight, beautifully designed RSS feed reader for AI academic papers from 
 ### Installation
 
 ```bash
-# Clone or download the project
-cd "RSS _READER"
-
-# No dependencies to install - it's vanilla JS!
+# Clone the repo
+git clone https://github.com/It0n5/RSS-AI.git
+cd RSS-AI
 ```
 
 ### Running the App
 
-You need two terminal windows:
-
-**Terminal 1 - Start the CORS proxy server:**
+**Option 1: Single command (recommended)**
 ```bash
-node server.js
+npm start
 ```
-You should see: `🚀 CORS Proxy Server running at http://localhost:3001`
+This launches both servers and opens the app in your browser automatically.
 
-**Terminal 2 - Start the web server:**
+**Option 2: Manual (two terminals)**
 ```bash
-npx -y http-server -p 3000 -c-1
+# Terminal 1: CORS proxy
+node server.js
+
+# Terminal 2: Web server
+npx -y http-server -p 3000
 ```
 
 **Open your browser:**
