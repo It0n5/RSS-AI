@@ -40,11 +40,11 @@ This launches both servers and opens the app in your browser automatically.
 node server.js
 
 # Terminal 2: Web server
-npx -y http-server -p 3000
+npx -y http-server -p 4002
 ```
 
 **Open your browser:**
-Navigate to **http://localhost:3000**
+Navigate to **http://localhost:4002**
 
 ## Project Structure
 

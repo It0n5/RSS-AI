@@ -6,9 +6,15 @@
   "scripts": {
     "start": "node start.js",
     "proxy": "node server.js",
-    "serve": "npx -y http-server -p 3000 -c-1"
+    "serve": "npx -y http-server -p 4002 -c-1"
   },
-  "keywords": ["arxiv", "rss", "ai", "papers", "reader"],
+  "keywords": [
+    "arxiv",
+    "rss",
+    "ai",
+    "papers",
+    "reader"
+  ],
   "author": "",
   "license": "MIT"
 }
