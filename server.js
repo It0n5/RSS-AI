@@ -12,7 +12,7 @@
  * 
  * USAGE:
  *   node server.js
- *   Then access: http://localhost:3001/?url=https://export.arxiv.org/rss/cs.LG
+ *   Then access: http://localhost:4001/?url=https://export.arxiv.org/rss/cs.LG
  * 
  * @author AI Paper Feed
  * @version 1.0.0
@@ -23,7 +23,7 @@ const https = require('https'); // HTTPS client for arXiv requests
 const url = require('url');     // URL parsing utility
 
 // Server configuration
-const PORT = 3001;
+const PORT = 4001;
 
 // SECURITY: Whitelist of allowed target hosts
 // Only arXiv domains can be proxied - prevents SSRF attacks

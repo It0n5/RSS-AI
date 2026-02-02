@@ -9,7 +9,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 // Configuration
-const PROXY_PORT = 3001;
+const PROXY_PORT = 4001;
 const HTTP_PORT = 3000;
 
 console.log('\n🚀 AI Paper Feed - Starting servers...\n');

@@ -67,7 +67,7 @@ RSS _READER/
 ### CORS Handling
 
 Browsers block direct requests to arXiv due to CORS. The app handles this via:
-1. **Local proxy** (server.js on port 3001) - Most reliable
+1. **Local proxy** (server.js on port 4001) - Most reliable
 2. **Public proxies** (fallback) - codetabs, corsproxy.io, allorigins
 
 ### Data Flow
@@ -114,7 +114,7 @@ const QUICK_FILTERS = {...};  // Keyword groups for quick filters
 arXiv doesn't publish new papers on weekends. Use "Past 7 Days" to see recent papers.
 
 ### Papers not loading
-1. Make sure `server.js` is running on port 3001
+1. Make sure `server.js` is running on port 4001
 2. Check browser console for CORS errors
 3. Try refreshing the page
 

@@ -42,7 +42,7 @@ const CONFIG = {
     // CORS proxy chain - tries each in order until one succeeds
     // Local proxy (server.js) is most reliable; public proxies are fallbacks
     corsProxies: [
-        'http://localhost:3001/?url=',              // Local proxy (run server.js)
+        'http://localhost:4001/?url=',              // Local proxy (run server.js)
         'https://api.codetabs.com/v1/proxy?quest=', // Public proxy 1
         'https://corsproxy.io/?',                   // Public proxy 2
         'https://api.allorigins.win/raw?url='       // Public proxy 3
